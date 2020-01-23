@@ -1,0 +1,323 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Bitcoin Service",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:5001",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Wallet",
+      "description": "API for wallet in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Register in system",
+        "parameters": [
+          {
+            "name": "Register",
+            "in": "body",
+            "description": "User that want to register",
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User Registered Successfully",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Login in system",
+        "parameters": [
+          {
+            "name": "Login",
+            "in": "body",
+            "description": "User that want to login",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User Logged In",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/getNewAddress": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Get new bitcoin wallet address if not available",
+        "description": "Adds an item to the system",
+        "operationId": "getBitcoinAddess",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Create new wallet address for user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRequired"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create new wallet address for user",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/getBTCWalletBalance": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "to get BTC wallet balance",
+        "description": "Gets BTC wallet balance",
+        "operationId": "getBTCWalletBalance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Create new wallet address for user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRequired"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get wallet balance from the blockchain response",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/withdrawalBalance": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "For withdraw/send BTC",
+        "description": "Gets BTC wallet balance",
+        "operationId": "withdrawalBalance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Authentication Token",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRequired"
+            }
+          },
+          {
+            "name": "Withdraw Params",
+            "in": "body",
+            "description": "Withdraw Params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/withdraw_params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdraw balance from user wallet.",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/export_wallet_privatekey": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "For Exporting Private Key",
+        "operationId": "export_wallet_privatekey",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Create new wallet address for user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRequired"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Export wallet private key.",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    } 
+  },
+  "definitions": {
+    "TokenRequired": {
+      "required": [
+        "Authorization"
+      ],
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDRjMTJmMTZhNGFkODQxMmM3Y2Y4N2EiLCJ1c2VyX25hbWUiOiJFdGhlci1FeHBlcnQiLCJpYXQiOjE1NjUyNjY4MTJ9.tWtB2iZ7namAessBNdR4G-efOoDCnsAUHQYhD-mRH1E"
+        }
+      }
+    },
+    "Register": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "test@test.com"
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "Pass@123"
+        }
+      }
+    },
+    "Login": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "test@test.com"
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "Pass@123"
+        }
+      }
+    },
+    "withdraw_params": {
+      "type": "object",
+      "required": [
+        "dest_address",
+        "withdrawAmount"
+      ],
+      "properties": {
+        "dest_address": {
+          "type": "string"
+        },
+        "withdrawAmount": {
+          "type": "number"
+        }
+      }
+    },
+    "Response": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "0 OR 1"
+        },
+        "message": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "Print error or success message"
+        },
+        "data": {
+          "type": "string",
+          "uniqueItems": true,
+          "example": "Response data if require"
+        }
+      }
+    }
+  }
+}
