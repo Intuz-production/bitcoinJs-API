@@ -1,20 +1,20 @@
-# bitcoinJs-API
-Integrate Bitcoin in your Application seamlessly with ready made API
+# BitcoinJs-API
+# Integrate Bitcoin in your Application seamlessly with ready made API
 
 
-Technology Stack: 
+# Technology Stack: 
 
     • Node (10.15.1)
     • MongoDb
 
-Prerequisites:
+# Prerequisites:
 
     • Bitcoin daemon :
         Used for interaction with testnet/mainnet.
     • Bitcoin Full Node:
         You check how to setup Bitcoin Node here - https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md
 
-NPM Dependencies:
+# NPM Dependencies:
 
 These dependencies will be installed by default using *npm i* command by navigating inside project directory
 
@@ -22,7 +22,7 @@ These dependencies will be installed by default using *npm i* command by navigat
         Swagger is used for API documentation for users, teams, and enterprises.
 
 
-Deployment instructions:
+# Deployment instructions:
 
 Upload code on the server and run below command:
     
@@ -32,13 +32,14 @@ After all node_modules are installed, run below command to start application:
 
 
     npm run start - 
+
 This will start application in development mode. You can refer to.ENV to setup a new environment as per your requirement.
 
 To run the application inside PM2 container, install PM2 first and then run below command: 
 
     pm2 start npm -- run start 
      
-How to setup local Bitcoin environment : 
+# How to setup local Bitcoin environment : 
 
 - After setting up Bitcoin daemon open bitcoin.conf file and set following:
 
@@ -52,19 +53,19 @@ How to setup local Bitcoin environment :
     
 Now store this rpcuser and password in .ENV file to execute all the RPC function. Txindex is set as 1 because we will need notification of every new block to check transaction of our wallet. If txindex is set to 0, the API will not receive new incoming transcation for wallets. 
 
-API Path:
+# API Path:
 
 Once you have successfully installed node modules and deployed the app on server, you can navigate to below path to view all API documentation using Swagger. 
 
     • http://localhost:5001/api-calls/
 
-Please note: 
+# Please note: 
 
 - If you have setup the project on cloud, replace localhost with the IP address of your host.
 - In bitcoin blockchain, all the functions are predefined in JSON-RPC, and we use only those functions that defined in RPC.
 - Function name are stored in .ENV file which is used in this demo. You can add new feature by adding new RPC calls to the .ENV files, but you may need to add logic to execute new features. 
 
-Functionality
+# Functionality
 
     • **File** : common.js
 
@@ -92,7 +93,7 @@ Functionality
 
         **getAllUserWalletAddress** : This function is used to get all user wallet public address for the compare with addresses of the transaction and if match found then store transaction in the database.
 
-API End-Point
+# API End-Point
 
     • /register
         - Register new users in the system and store email and password in the database.
@@ -119,7 +120,7 @@ API End-Point
         - It is used to export the private key of the wallet from the blockchain.
         - Params : Token
 
-Example
+# Example
 
     • Call /getNewAddress API and pass token in headers.
     • Response : {
